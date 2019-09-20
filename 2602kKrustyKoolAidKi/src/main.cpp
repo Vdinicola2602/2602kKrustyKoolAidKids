@@ -16,8 +16,12 @@ vex::brain       Brain;
 vex::competition Competition;
 
 // define your global instances of motors and other devices here
-vex::motor BackLeft        = vex::motor( vex::PORT1 );
-vex::motor RightMotor       = vex::motor
+// Port Values for driving motors & Controller
+vex::motor BackRight        = vex::motor( vex::PORT1 );
+vex::motor FrontRight        = vex::motor(vex::PORT2 );
+vex::motor FrontLeft      = vex::motor(vex::PORT3); 
+vex::motor BackLeft       = vex::motor(vex::PORT4 );
+vex::controller ControllerMain = vex::controller();
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -63,7 +67,7 @@ void autonomous( void ) {
 
 void usercontrol( void ) {
   // User control code here, inside the loop
-  
+  Brain.Screen.print("Driving Mode Activated");
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo 
@@ -72,8 +76,22 @@ void usercontrol( void ) {
     // Insert user code here. This is where you use the joystick values to 
     // update your motors, etc.
     // ........................................................................
-    
- 
+    if(Axis1)(Axis3);{
+      BackLeft.spin(vex::directionType::fwd, ControllerMain.Axis1.position(), vex::velocityUnits::pct);
+      BackRight.spin(vex::directionType::fwd, ControllerMain.Axis1.position(), vex::velocityUnits::pct);
+      FrontLeft.spin(vex::directionType::fwd, ControllerMain.Axis1.position(), vex::velocityUnits::pct);
+      FrontRight.spin(vex::directionType::fwd, ControllerMain.Axis1.position(), vex::velocityUnits::pct);
+
+      //Foward motion makes robot drive foward and backward with Axis3 on COntroller
+      BackLeft.spin(vex::directionType::rev, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+      BackRight.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+      FrontLeft.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+      FrontRight.spin(vex::directionType::rev, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+
+    }
+   
+
+   
     vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
   }
 }
