@@ -7,7 +7,7 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
-
+// need to find out how to declare graphics functions #include "vex"
 using namespace vex;
 
 // A global instance of vex::brain used for printing to the V5 brain screen
@@ -33,6 +33,7 @@ vex::controller ControllerMain = vex::controller();
 /*---------------------------------------------------------------------------*/
 
 void pre_auton( void ) {
+//  graphics()
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
   
@@ -94,6 +95,11 @@ void usercontrol( void ) {
     vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
   }
 }
+
+//void graphics( void ){
+//  clearScreen(void);
+//  drawCircle(100, 100, 50);
+//}
 
 //
 // Main will set up the competition functions and callbacks.
