@@ -79,13 +79,13 @@ void usercontrol( void ) {
     if(Axis3){
       
       //Axis 3 controlleing left wheels
-      BackLeft.spin(vex::directionType::rev, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+      BackLeft.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
       FrontLeft.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
     }
 
     if(Axis2){
       //axis 2 controlling right wheels
-      BackRight.spin(vex::directionType::fwd, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
+      BackRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
       FrontRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
     }
    
