@@ -76,14 +76,17 @@ void usercontrol( void ) {
     // Insert user code here. This is where you use the joystick values to 
     // update your motors, etc.
     // ........................................................................
-    if(Axis1){
+    if(Axis3){
       
-      //Foward motion makes robot drive foward and backward with Axis3 on COntroller
+      //Axis 3 controlleing left wheels
       BackLeft.spin(vex::directionType::rev, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
-      BackRight.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
       FrontLeft.spin(vex::directionType::fwd, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
-      FrontRight.spin(vex::directionType::rev, ControllerMain.Axis3.position(), vex::velocityUnits::pct);
+    }
 
+    if(Axis2){
+      //axis 2 controlling right wheels
+      BackRight.spin(vex::directionType::fwd, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
+      FrontRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
     }
    
 
