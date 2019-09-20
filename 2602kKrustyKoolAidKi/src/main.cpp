@@ -17,10 +17,10 @@ vex::competition Competition;
 
 // define your global instances of motors and other devices here
 // Port Values for driving motors & Controller
-vex::motor BackRight        = vex::motor( vex::PORT1 );
-vex::motor FrontRight        = vex::motor(vex::PORT2 );
-vex::motor FrontLeft      = vex::motor(vex::PORT3); 
-vex::motor BackLeft       = vex::motor(vex::PORT4 );
+vex::motor BackRight        = vex::motor( vex::PORT3);
+vex::motor FrontRight        = vex::motor(vex::PORT4);
+vex::motor FrontLeft      = vex::motor(vex::PORT1); 
+vex::motor BackLeft       = vex::motor(vex::PORT2);
 vex::controller ControllerMain = vex::controller();
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
