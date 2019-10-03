@@ -17,13 +17,14 @@ vex::competition Competition;
 
 // define your global instances of motors and other devices here
 // Port Values for driving motors & Controller
-vex::motor BackRight        = vex::motor( vex::PORT3);
-vex::motor FrontRight        = vex::motor(vex::PORT4);
+vex::motor BackRight      = vex::motor( vex::PORT3);
+vex::motor FrontRight     = vex::motor(vex::PORT4);
 vex::motor FrontLeft      = vex::motor(vex::PORT1); 
 vex::motor BackLeft       = vex::motor(vex::PORT2);
 vex::controller ControllerMain = vex::controller();
-vex::motor Claw1          = vex::motor(Port);
-vex::motor Claw2          = vex::motor(Port);
+vex::motor Claw1          = vex::motor(vex::PORT);
+vex::motor Lift1          = vex::motor(Port);
+vex::motor Lift2          = vex::motor(Port);
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -55,7 +56,21 @@ void autonomous( void ) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  Brain.Screen.print("Autobots Activated");
+  Brain.Screen.print("Autobot Activated");
+  
+
+  //Code Starts here:
+  //Moves forward for green block
+
+  Claw1.rotateTo( 180 , vex::rotationUnits::deg, 30, vex::velocityUnits::pct);
+
+
+  BackLeft.spinFor( 5, vex::rotationUnits::rev);
+  FrontLeft.spinFor( 5, vex::rotationUnits::rev);
+  BackRight.spinFor( 5, vex::rotationUnits::rev);
+  FrontRight.spinFor( 5, vex::rotationUnits::rev);
+
+
   
 }
 
@@ -72,6 +87,9 @@ void autonomous( void ) {
 void usercontrol( void ) {
   // User control code here, inside the loop
   Brain.Screen.print("Driving Mode Activated");
+
+
+  //The following defines variables for the claw
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo 
@@ -93,38 +111,52 @@ void usercontrol( void ) {
       FrontRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
     }
 
+    //Stuff for Claw down below
 
 
+
+    //This code controlls the lift mechanics of the claw
     if(ButtonR1){
+
     //Raises claw up
-    Claw1.spin(vex::directionType::fwd);
-    Claw2.spin(vex::directionType::fwd);
+    Lift1.spin(vex::directionType::fwd);
+    Lift2.spin(vex::directionType::fwd);
     }
 
 
     else if(ButtonR2){
       //Lowers Claw down
-      Claw1.spin(vex::directionType::rev);
-      Claw2.spin(vex::directionType::rev);
+      Lift1.spin(vex::directionType::rev);
+      Lift2.spin(vex::directionType::rev);
     }
 
 
     else {
-      Claw1.stop();
-      Claw2.stop();
+      Lift1.stop();
+      Lift2.stop();
 
     }
    
+
+   //This code opens up the claw
+   if(ButtonA){
+     //Opens claw:
+     Claw1.rotateFor( 180, vex::rotationUnits:: deg);
+   }
+
+   else {
+    Claw1.startRotateTo( 0, vex::rotationUnits::deg);
+   }
 
    
     vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
   }
 }
 
-//void graphics( void ){
-//  clearScreen(void);
-//  drawCircle(100, 100, 50);
-//}
+void graphics( void ){
+  clearScreen(void);
+  drawCircle(100, 100, 50);
+}
 
 //
 // Main will set up the competition functions and callbacks.
