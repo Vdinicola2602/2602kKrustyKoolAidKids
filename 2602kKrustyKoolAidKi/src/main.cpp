@@ -22,6 +22,8 @@ vex::motor FrontRight        = vex::motor(vex::PORT4);
 vex::motor FrontLeft      = vex::motor(vex::PORT1); 
 vex::motor BackLeft       = vex::motor(vex::PORT2);
 vex::controller ControllerMain = vex::controller();
+vex::motor Claw1          = vex::motor(Port);
+vex::motor Claw2          = vex::motor(Port);
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -53,7 +55,8 @@ void autonomous( void ) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-
+  Brain.Screen.print("Autobots Activated");
+  
 }
 
 /*---------------------------------------------------------------------------*/
@@ -88,6 +91,28 @@ void usercontrol( void ) {
       //axis 2 controlling right wheels
       BackRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
       FrontRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
+    }
+
+
+
+    if(ButtonR1){
+    //Raises claw up
+    Claw1.spin(vex::directionType::fwd);
+    Claw2.spin(vex::directionType::fwd);
+    }
+
+
+    else if(ButtonR2){
+      //Lowers Claw down
+      Claw1.spin(vex::directionType::rev);
+      Claw2.spin(vex::directionType::rev);
+    }
+
+
+    else {
+      Claw1.stop();
+      Claw2.stop();
+
     }
    
 
