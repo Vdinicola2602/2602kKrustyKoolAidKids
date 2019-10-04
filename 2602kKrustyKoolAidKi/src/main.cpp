@@ -87,7 +87,15 @@ void autonomous( void ) {
 void usercontrol( void ) {
   // User control code here, inside the loop
   Brain.Screen.print("Driving Mode Activated");
+  
+  BackLeft.setVelocity( 75, vex::velocityUnits::pct);
+  FrontLeft.setVelocity( 75, vex::velocityUnits::pct);
+  BackRight.setVelocity(75, vex::velocityUnits::pct);
+  FrontRight.setVelocity( 75, vex::velocityUnits::pct);
 
+
+  Lift1.setMaxTorque( 100, vex::torqueUnits::InLb); 
+  Lift2.setMaxTorque( 100, vex::torqueUnits::InLb);
 
   //The following defines variables for the claw
   while (1) {
@@ -155,7 +163,7 @@ void usercontrol( void ) {
 
 void graphics( void ){
   clearScreen(void);
-  drawCircle(100, 100, 50);
+  vex::brain(100, 100, 50);
 }
 
 //
