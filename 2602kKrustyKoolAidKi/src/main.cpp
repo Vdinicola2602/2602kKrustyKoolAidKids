@@ -22,9 +22,10 @@ vex::motor FrontRight     = vex::motor(vex::PORT4);
 vex::motor FrontLeft      = vex::motor(vex::PORT1); 
 vex::motor BackLeft       = vex::motor(vex::PORT2);
 vex::controller ControllerMain = vex::controller();
-vex::motor Claw1          = vex::motor(vex::PORT);
-vex::motor Lift1          = vex::motor(Port);
-vex::motor Lift2          = vex::motor(Port);
+// vex::motor Claw1          = vex::motor(vex::PORT);
+vex::motor Lift1          = vex::motor(PORT20);
+// vex::motor Lift2          = vex::motor(PORT); 
+
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -62,7 +63,7 @@ void autonomous( void ) {
   //Code Starts here:
   //Moves forward for green block
 
-  Claw1.rotateTo( 180 , vex::rotationUnits::deg, 30, vex::velocityUnits::pct);
+ // Claw1.rotateTo( 180 , vex::rotationUnits::deg, 30, vex::velocityUnits::pct); 
 
 
   BackLeft.spinFor( 5, vex::rotationUnits::rev);
@@ -95,7 +96,7 @@ void usercontrol( void ) {
 
 
   Lift1.setMaxTorque( 100, vex::torqueUnits::InLb); 
-  Lift2.setMaxTorque( 100, vex::torqueUnits::InLb);
+  // Lift2.setMaxTorque( 100, vex::torqueUnits::InLb);
 
   //The following defines variables for the claw
   while (1) {
@@ -119,6 +120,7 @@ void usercontrol( void ) {
       FrontRight.spin(vex::directionType::rev, ControllerMain.Axis2.position(), vex::velocityUnits::pct);
     }
 
+
     //Stuff for Claw down below
 
 
@@ -128,20 +130,20 @@ void usercontrol( void ) {
 
     //Raises claw up
     Lift1.spin(vex::directionType::fwd);
-    Lift2.spin(vex::directionType::fwd);
+// Lift2.spin(vex::directionType::fwd);
     }
 
 
     else if(ButtonR2){
       //Lowers Claw down
       Lift1.spin(vex::directionType::rev);
-      Lift2.spin(vex::directionType::rev);
+     // Lift2.spin(vex::directionType::rev);
     }
 
 
     else {
       Lift1.stop();
-      Lift2.stop();
+      // Lift2.stop();
 
     }
    
@@ -149,22 +151,22 @@ void usercontrol( void ) {
    //This code opens up the claw
    if(ButtonA){
      //Opens claw:
-     Claw1.rotateFor( 180, vex::rotationUnits:: deg);
+    //  Claw1.rotateFor( 180, vex::rotationUnits:: deg);
    }
 
    else {
-    Claw1.startRotateTo( 0, vex::rotationUnits::deg);
+    // Claw1.startRotateTo( 0, vex::rotationUnits::deg);
    }
 
    
     vex::task::sleep(20); //Sleep the task for a short amount of time to prevent wasted resources. 
-  }
+  } 
 }
 
-void graphics( void ){
+/* void graphics( void ){
   clearScreen(void);
-  vex::brain(100, 100, 50);
-}
+  vex::brain(100, 100, 50); 
+} */
 
 //
 // Main will set up the competition functions and callbacks.
@@ -180,6 +182,5 @@ int main() {
     //Prevent main from exiting with an infinite loop.                        
     while(1) {
       vex::task::sleep(100);//Sleep the task for a short amount of time to prevent wasted resources.
-    }    
-       
+      }    
 }
