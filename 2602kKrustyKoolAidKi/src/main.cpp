@@ -33,7 +33,7 @@ vex::motor Lift1          = vex::motor(PORT20);
 /*  Do them in the following function.  You must return from this function   */
 /*  or the autonomous and usercontrol tasks will not be started.  This       */
 /*  function is only called once after the cortex has been powered on and    */ 
-/*  not every time that the robot is disabled.                               */
+/*  not every time that the ro cbot is disabled.                               */
 /*---------------------------------------------------------------------------*/
 
 void pre_auton( void ) {
@@ -88,11 +88,6 @@ void autonomous( void ) {
 void usercontrol( void ) {
   // User control code here, inside the loop
   Brain.Screen.print("Driving Mode Activated");
-  
-  BackLeft.setVelocity( 75, vex::velocityUnits::pct);
-  FrontLeft.setVelocity( 75, vex::velocityUnits::pct);
-  BackRight.setVelocity(75, vex::velocityUnits::pct);
-  FrontRight.setVelocity( 75, vex::velocityUnits::pct);
 
 
   Lift1.setMaxTorque( 100, vex::torqueUnits::InLb); 
