@@ -24,7 +24,7 @@ vex::motor BackLeft       = vex::motor(vex::PORT2);
 vex::controller ControllerMain = vex::controller();
 // vex::motor Claw1          = vex::motor(vex::PORT);
 vex::motor Lift1          = vex::motor(PORT20);
-// vex::motor Lift2          = vex::motor(PORT); 
+vex::motor Lift2          = vex::motor(PORT11); 
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -89,11 +89,16 @@ void usercontrol( void ) {
   // User control code here, inside the loop
   Brain.Screen.print("Driving Mode Activated");
 
+  if(ButtonR1){
+    Lift1.setVelocity( 200, vex::velocityUnits::rpm);
+    Lift2.setVelocity( 200, vex::velocityUnits::rpm);
+  }
 
-  Lift1.setMaxTorque( 100, vex::torqueUnits::InLb); 
-  // Lift2.setMaxTorque( 100, vex::torqueUnits::InLb);
+  if(ButtonR2){
+    Lift1.setVelocity( 200, vex::velocityUnits::rpm);
+    Lift2.setVelocity( 200, vex::velocityUnits::rpm);
+  }
 
-  //The following defines variables for the claw
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo 
@@ -121,24 +126,25 @@ void usercontrol( void ) {
 
 
     //This code controlls the lift mechanics of the claw
-    if(ButtonR1){
-
+    if(ControllerMain.ButtonR1.pressing()){
+    Lift1.setVelocity( 200, vex::velocityUnits::rpm);
+    Lift2.setVelocity(200, vex::velocityUnits::rpm);
     //Raises claw up
-    Lift1.spin(vex::directionType::fwd);
-// Lift2.spin(vex::directionType::fwd);
+    Lift1.spin(vex::directionType::fwd, 200, vex::velocityUnits::rpm);
+    Lift2.spin(vex::directionType::rev, 200, vex::velocityUnits::rpm);
     }
 
 
-    else if(ButtonR2){
+    else if(ControllerMain.ButtonR2.pressing()){
       //Lowers Claw down
-      Lift1.spin(vex::directionType::rev);
-     // Lift2.spin(vex::directionType::rev);
+      Lift1.spin(vex::directionType::rev, 200, vex::velocityUnits::rpm);
+      Lift2.spin(vex::directionType::fwd, 200, vex::velocityUnits::rpm);
     }
 
 
     else {
       Lift1.stop();
-      // Lift2.stop();
+      Lift2.stop();
 
     }
    
