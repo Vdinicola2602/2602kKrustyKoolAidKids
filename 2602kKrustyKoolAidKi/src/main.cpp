@@ -28,10 +28,9 @@ using namespace vex;
  vex::motor FrontLeft      = vex::motor(vex::PORT1); 
  vex::motor BackLeft       = vex::motor(vex::PORT2);
  vex::controller ControllerMain = vex::controller();
- vex::motor Claw1          = vex::motor(vex::PORT7);
+ vex::motor Claw1          = vex::motor(vex::PORT5);
  vex::motor Lift1          = vex::motor(PORT20);
  vex::motor Lift2          = vex::motor(PORT11); 
- 
  /*---------------------------------------------------------------------------*/
  /*                          Pre-Autonomous Functions                         */
  /*                                                                           */
@@ -63,21 +62,27 @@ void autonomous( void ) {
    /* ..........................................................................*/
    /* Insert autonomous user code here.                                         */
    /* .......................................................................... */
-Brain.Screen.print("Autobot Activated");
+ Brain.Screen.print("Autobot Activated");
    
  
   // Code Starts here:
   // Moves forward for green block
- 
-   Claw1.rotateTo( 180 , vex::rotationUnits::deg, 30, vex::velocityUnits::pct); 
- 
- 
-   BackLeft.spinFor( 5, vex::rotationUnits::rev);
-   FrontLeft.spinFor( 5, vex::rotationUnits::rev);
-   BackRight.spinFor( 5, vex::rotationUnits::rev);
-   FrontRight.spinFor( 5, vex::rotationUnits::rev);
+  
+   Lift1.rotateTo(-644, vex::rotationUnits::deg);
+   Lift2.rotateTo(-600, vex::rotationUnits::deg);
+
+   Claw1.rotateTo( 200, vex::rotationUnits::deg); 
  
  
+   BackLeft.spinFor( 100, vex::rotationUnits::deg);
+   FrontLeft.spinFor( 100, vex::rotationUnits::deg);
+   BackRight.spinFor( -100, vex::rotationUnits::deg);
+   FrontRight.spinFor( -100, vex::rotationUnits::deg);
+
+
+   Claw1.rotateTo(8, vex::rotationUnits::deg);
+
+   
    
  }
  
@@ -146,11 +151,11 @@ Brain.Screen.print("Autobot Activated");
     // This code opens up the claw
     if(ControllerMain.ButtonA.pressing()){
       // Opens claw:
-       Claw1.rotateFor( 180, vex::rotationUnits:: deg);
+       Claw1.rotateFor( 200, vex::rotationUnits:: deg);
     }
  
     else {
-      Claw1.startRotateTo( 0, vex::rotationUnits::deg);
+      Claw1.startRotateTo( 8, vex::rotationUnits::deg);
     }
  
     
