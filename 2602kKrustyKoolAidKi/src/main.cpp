@@ -28,7 +28,7 @@ using namespace vex;
  vex::motor FrontLeft      = vex::motor(vex::PORT1); 
  vex::motor BackLeft       = vex::motor(vex::PORT2);
  vex::controller ControllerMain = vex::controller();
- vex::motor Claw1          = vex::motor(vex::PORT5);
+ vex::motor Claw          = vex::motor(vex::PORT5);
  vex::motor Lift1          = vex::motor(PORT20);
  vex::motor Lift2          = vex::motor(PORT11); 
  /*---------------------------------------------------------------------------*/
@@ -66,23 +66,25 @@ void autonomous( void ) {
    
  
   // Code Starts here:
-  // Moves forward for green block
-  
-   Lift1.rotateTo(-644, vex::rotationUnits::deg);
-   Lift2.rotateTo(-600, vex::rotationUnits::deg);
-
-   Claw1.rotateTo( 200, vex::rotationUnits::deg); 
- 
+  // Moves forward for a block
  
    BackLeft.spinFor( 100, vex::rotationUnits::deg);
    FrontLeft.spinFor( 100, vex::rotationUnits::deg);
    BackRight.spinFor( -100, vex::rotationUnits::deg);
    FrontRight.spinFor( -100, vex::rotationUnits::deg);
 
+   vex::task::sleep(5);
 
-   Claw1.rotateTo(8, vex::rotationUnits::deg);
+   FrontLeft.spinFor( 100, vex::rotationUnits::deg);
+   BackLeft.spinFor(100, vex::rotationUnits::deg);
 
-   
+   vex::task::sleep(5);
+  
+   Claw.spinToPosition(-150, vex::rotationUnits::deg);
+
+   vex::task::sleep(2);
+
+   Claw.spinToPosition(-70, vex::rotationUnits::deg);
    
  }
  
@@ -129,35 +131,39 @@ void autonomous( void ) {
     // This code controlls the lift mechanics of the claw
      if(ControllerMain.ButtonR1.pressing()){
     // Raises claw up
-     Lift1.spin(vex::directionType::fwd, 200, vex::velocityUnits::rpm);
-     Lift2.spin(vex::directionType::rev, 200, vex::velocityUnits::rpm);
+     Lift1.spin(vex::directionType::fwd, 50, vex::velocityUnits::rpm);
+     Lift2.spin(vex::directionType::rev, 50, vex::velocityUnits::rpm);
      }
  
  
      else if(ControllerMain.ButtonR2.pressing()){
       // Lowers Claw down
-       Lift1.spin(vex::directionType::rev, 200, vex::velocityUnits::rpm);
-       Lift2.spin(vex::directionType::fwd, 200, vex::velocityUnits::rpm);
+       Lift1.spin(vex::directionType::rev, 50, vex::velocityUnits::rpm);
+       Lift2.spin(vex::directionType::fwd, 50, vex::velocityUnits::rpm);
      }
  
  
-     else {
+    else {
        Lift1.stop();
        Lift2.stop();
+    }    
  
-     }
+     
     
  
     // This code opens up the claw
     if(ControllerMain.ButtonA.pressing()){
       // Opens claw:
-       Claw1.rotateFor( 200, vex::rotationUnits:: deg);
+       Claw.spinToPosition(-200, vex::rotationUnits::deg);
     }
  
+     else if(ControllerMain.ButtonB.pressing()){
+      Claw.spinToPosition( -15, vex::rotationUnits::deg);
+    }
+
     else {
-      Claw1.startRotateTo( 8, vex::rotationUnits::deg);
+      Claw.stop();
     }
- 
     
      vex::task::sleep(20);// Sleep the task for a short amount of time to prevent wasted resources. 
    } 
